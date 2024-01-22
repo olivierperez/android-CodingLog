@@ -1,9 +1,11 @@
 package fr.o80.codinglog
 
 import android.content.Context
+import android.content.Intent
 import fr.o80.codinglog.data.entity.LogInfoEntity
 import fr.o80.codinglog.data.openCodingDatabase
 import fr.o80.codinglog.notifier.Notifier
+import fr.o80.codinglog.ui.CodingLogActivity
 import java.util.Date
 
 class CodingLog(
@@ -25,5 +27,10 @@ class CodingLog(
     companion object {
         var NOTIFICATION_GROUP_ID: String = "CodingLog"
         var NOTIFICATION_GROUP_NAME: String = "Coding Log"
+
+        fun intent(context: Context): Intent =
+            Intent(context, CodingLogActivity::class.java).apply {
+                flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
     }
 }

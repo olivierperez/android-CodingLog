@@ -7,7 +7,10 @@
         <activity
             android:name=".ui.CodingLogActivity"
             android:exported="false"
+            android:icon="@drawable/ic_notification"
             android:label="@string/title_activity_coding_log"
+            android:launchMode="singleTask"
+            android:taskAffinity="fr.o80.codinglog.task"
             android:theme="@style/Theme.CodingLog" />
 
         <receiver

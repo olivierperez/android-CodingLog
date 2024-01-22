@@ -1,7 +1,6 @@
 package fr.o80.codinglog
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,11 +10,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -46,7 +48,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun ExampleContent() {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val codingLog = remember { CodingLog(context) }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            IconButton(
+                modifier = Modifier.padding(16.dp),
+                onClick = {
+                    context.startActivity(CodingLog.intent(context))
+                }
+            ) {
+                Icon(Icons.Default.List, contentDescription = "All logs")
+            }
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -55,9 +72,6 @@ private fun ExampleContent() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            val context = LocalContext.current
-            val scope = rememberCoroutineScope()
-            val codingLog = remember { CodingLog(context) }
 
             CheckNotificationPermission()
 
@@ -130,9 +144,9 @@ fun CheckNotificationPermission() {
             onClick = {
                 context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName);
-                    putExtra("app_package", context.packageName);
-                    putExtra("app_uid", context.applicationInfo.uid);
+                    putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                    putExtra("app_package", context.packageName)
+                    putExtra("app_uid", context.applicationInfo.uid)
                 })
             }
         ) {
