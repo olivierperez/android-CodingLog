@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <activity
+            android:name=".ui.CodingLogActivity"
+            android:exported="false"
+            android:label="@string/title_activity_coding_log"
+            android:theme="@style/Theme.CodingLog" />
+
+        <receiver
+            android:name=".notifier.ClearNotificationsBufferReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".data.ClearNotificationsDatabaseReceiver"
+            android:exported="false" />
+    </application>
+
+</manifest>
