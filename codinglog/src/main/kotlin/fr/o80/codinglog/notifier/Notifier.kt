@@ -11,7 +11,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import fr.o80.codinglog.CodingLog
 import fr.o80.codinglog.R
-import fr.o80.codinglog.data.ClearNotificationsDatabaseReceiver
 import fr.o80.codinglog.ui.CodingLogActivity
 
 class Notifier(
@@ -103,8 +102,6 @@ class Notifier(
             .setSubText(notifications.size.toString())
             .setDeleteIntent(clearBufferIntent())
             .setContentIntent(openLogActivity())
-            .addAction(clearDatabaseAction(category, notificationId))
-            .setAutoCancel(true)
 
         notificationManager.notify(notificationId, notification.build())
     }
@@ -115,25 +112,6 @@ class Notifier(
             3,
             Intent(context, CodingLogActivity::class.java),
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
-    }
-
-    private fun clearDatabaseAction(
-        category: String,
-        notificationId: Int
-    ): NotificationCompat.Action {
-        return NotificationCompat.Action(
-            android.R.drawable.ic_delete,
-            "Clear",
-            PendingIntent.getBroadcast(
-                context,
-                notificationId,
-                Intent(context, ClearNotificationsDatabaseReceiver::class.java).apply {
-                    putExtra("NOTIFICATION_ID", notificationId)
-                    putExtra("CATEGORY", category)
-                },
-                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-            )
         )
     }
 
