@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import fr.o80.codinglog.data.entity.LogInfoEntity
+import fr.o80.codinglog.domain.model.LogInfo
 import fr.o80.codinglog.ui.model.CategoryUi
 import fr.o80.codinglog.ui.molecule.CategoryFilters
 import fr.o80.codinglog.ui.molecule.LogItem
@@ -39,7 +39,7 @@ internal fun LogsListScreen(modifier: Modifier = Modifier) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun LogsList(
-    logs: List<LogInfoEntity>,
+    logs: List<LogInfo>,
     categories: List<CategoryUi>,
     onCategoryClick: (CategoryUi) -> Unit,
     modifier: Modifier = Modifier
@@ -58,7 +58,7 @@ private fun LogsList(
         items(
             items = logs,
             contentType = { "log" },
-            key = { it.uid }
+            key = { it.id }
         ) { log ->
             LogItem(
                 log = log,
@@ -76,15 +76,15 @@ private fun LogsListPreview() {
     CodingLogThemePreview {
         LogsList(
             logs = listOf(
-                LogInfoEntity(
-                    uid = 1,
+                LogInfo(
+                    id = 1,
                     createdAt = Date(),
                     category = "Example",
                     title = "Example Screen Viewed",
                     parameters = null
                 ),
-                LogInfoEntity(
-                    uid = 2,
+                LogInfo(
+                    id = 2,
                     createdAt = Date(1337),
                     category = "Demo",
                     title = "Somthing Else",

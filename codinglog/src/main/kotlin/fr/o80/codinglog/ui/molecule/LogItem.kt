@@ -11,12 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import fr.o80.codinglog.data.entity.LogInfoEntity
+import fr.o80.codinglog.domain.model.LogInfo
 import java.text.SimpleDateFormat
 
 @Composable
 internal fun LogItem(
-    log: LogInfoEntity,
+    log: LogInfo,
     modifier: Modifier = Modifier
 ) {
     val dateTimeFormatter =

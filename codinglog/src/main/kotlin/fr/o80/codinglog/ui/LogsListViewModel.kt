@@ -2,9 +2,7 @@ package fr.o80.codinglog.ui
 
 import android.content.Context
 import fr.o80.codinglog.domain.ObserveAllLogsUseCase
-import fr.o80.codinglog.data.CodingDatabase
-import fr.o80.codinglog.data.entity.LogInfoEntity
-import fr.o80.codinglog.data.openCodingDatabase
+import fr.o80.codinglog.domain.model.LogInfo
 import fr.o80.codinglog.ui.model.CategoryUi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +16,10 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 internal class LogsListViewModel(
-    context: Context,
-    db: CodingDatabase = openCodingDatabase(context)
+    context: Context
 ) {
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-    private val observeAllLogs = ObserveAllLogsUseCase(db)
+    private val observeAllLogs = ObserveAllLogsUseCase(context)
 
     private val selectedCategories = MutableStateFlow<Set<String>>(emptySet())
 
@@ -57,6 +54,6 @@ internal class LogsListViewModel(
 }
 
 internal data class LogsListState(
-    val logs: List<LogInfoEntity>,
+    val logs: List<LogInfo>,
     val categories: List<CategoryUi>
 )
