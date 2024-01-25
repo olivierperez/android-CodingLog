@@ -22,7 +22,7 @@ import fr.o80.codinglog.ui.theme.CodingLogThemePreview
 import java.util.Date
 
 @Composable
-internal fun LogsListScreen(modifier: Modifier = Modifier) {
+fun LogsListScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val viewModel = remember { LogsListViewModel(context) }
 
